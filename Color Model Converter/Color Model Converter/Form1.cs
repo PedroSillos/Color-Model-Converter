@@ -43,12 +43,12 @@ namespace Color_Model_Converter
             */
         }
 
-        private Bitmap RGB1_para_YIQ(Bitmap rgb1)
+        private double[,,] RGB1_para_YIQ(Bitmap rgb1)
         {
             int largura_rgb1 = rgb1.Width;
             int altura_rgb1 = rgb1.Height;
 
-            Bitmap YIQ = new Bitmap(largura_rgb1, altura_rgb1);
+            double[,,] YIQ = new double[largura_rgb1, altura_rgb1, 3];
 
             for (int coluna_rgb1 = 0; coluna_rgb1 < largura_rgb1; coluna_rgb1++)
             {
@@ -63,12 +63,11 @@ namespace Color_Model_Converter
                     double em_fase = (0.596 * vermelho) - (0.275 * verde) - (0.321 * azul);
                     double quadratura = (0.212 * vermelho) - (0.523 * verde) + (0.311 * azul);
 
-                    Color pixel_yiq = Color.FromArgb(255, (int)luminância, (int)em_fase, (int)quadratura);
-
-                    YIQ.SetPixel(coluna_rgb1, linha_rgb1, pixel_yiq);
+                    YIQ[coluna_rgb1, linha_rgb1, 0] = luminância;
+                    YIQ[coluna_rgb1, linha_rgb1, 1] = em_fase;
+                    YIQ[coluna_rgb1, linha_rgb1, 2] = quadratura;
                 }
             }
-
             return YIQ;
         }
 
