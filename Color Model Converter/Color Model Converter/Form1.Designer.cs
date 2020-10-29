@@ -34,8 +34,12 @@
             this.label1 = new System.Windows.Forms.Label();
             this.label3 = new System.Windows.Forms.Label();
             this.btn_rgb1_para_yiq_para_rgb2 = new System.Windows.Forms.Button();
+            this.btn_rgb1_para_yiq_com_brilho_para_rgb2 = new System.Windows.Forms.Button();
+            this.label2 = new System.Windows.Forms.Label();
+            this.numUD_constante = new System.Windows.Forms.NumericUpDown();
             ((System.ComponentModel.ISupportInitialize)(this.picBox_rgb1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.picBox_rgb2)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.numUD_constante)).BeginInit();
             this.SuspendLayout();
             // 
             // picBox_rgb1
@@ -61,7 +65,7 @@
             // 
             // picBox_rgb2
             // 
-            this.picBox_rgb2.Location = new System.Drawing.Point(506, 45);
+            this.picBox_rgb2.Location = new System.Drawing.Point(696, 45);
             this.picBox_rgb2.Name = "picBox_rgb2";
             this.picBox_rgb2.Size = new System.Drawing.Size(360, 360);
             this.picBox_rgb2.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
@@ -82,29 +86,65 @@
             // 
             this.label3.AutoSize = true;
             this.label3.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label3.Location = new System.Drawing.Point(629, 408);
+            this.label3.Location = new System.Drawing.Point(717, 408);
             this.label3.Name = "label3";
-            this.label3.Size = new System.Drawing.Size(122, 20);
+            this.label3.Size = new System.Drawing.Size(320, 20);
             this.label3.TabIndex = 7;
-            this.label3.Text = "RGB1 - RGB 2";
+            this.label3.Text = "RGB1 - RGB 2 ou RGB2 com mais brilho";
             // 
             // btn_rgb1_para_yiq_para_rgb2
             // 
             this.btn_rgb1_para_yiq_para_rgb2.AutoSize = true;
-            this.btn_rgb1_para_yiq_para_rgb2.Location = new System.Drawing.Point(408, 12);
+            this.btn_rgb1_para_yiq_para_rgb2.Location = new System.Drawing.Point(189, 12);
             this.btn_rgb1_para_yiq_para_rgb2.Name = "btn_rgb1_para_yiq_para_rgb2";
-            this.btn_rgb1_para_yiq_para_rgb2.Size = new System.Drawing.Size(191, 27);
+            this.btn_rgb1_para_yiq_para_rgb2.Size = new System.Drawing.Size(270, 27);
             this.btn_rgb1_para_yiq_para_rgb2.TabIndex = 8;
             this.btn_rgb1_para_yiq_para_rgb2.TabStop = false;
-            this.btn_rgb1_para_yiq_para_rgb2.Text = "RGB1 para YIQ para RGB2";
+            this.btn_rgb1_para_yiq_para_rgb2.Text = "RGB1 para YIQ para RGB2 e subtração";
             this.btn_rgb1_para_yiq_para_rgb2.UseVisualStyleBackColor = true;
             this.btn_rgb1_para_yiq_para_rgb2.Click += new System.EventHandler(this.btn_rgb1_para_yiq_para_rgb2_Click);
+            // 
+            // btn_rgb1_para_yiq_com_brilho_para_rgb2
+            // 
+            this.btn_rgb1_para_yiq_com_brilho_para_rgb2.AutoSize = true;
+            this.btn_rgb1_para_yiq_com_brilho_para_rgb2.Location = new System.Drawing.Point(690, 12);
+            this.btn_rgb1_para_yiq_com_brilho_para_rgb2.Name = "btn_rgb1_para_yiq_com_brilho_para_rgb2";
+            this.btn_rgb1_para_yiq_com_brilho_para_rgb2.Size = new System.Drawing.Size(371, 27);
+            this.btn_rgb1_para_yiq_com_brilho_para_rgb2.TabIndex = 9;
+            this.btn_rgb1_para_yiq_com_brilho_para_rgb2.TabStop = false;
+            this.btn_rgb1_para_yiq_com_brilho_para_rgb2.Text = "RGB1 para YIQ com aumento de luminância para RGB2";
+            this.btn_rgb1_para_yiq_com_brilho_para_rgb2.UseVisualStyleBackColor = true;
+            this.btn_rgb1_para_yiq_com_brilho_para_rgb2.Click += new System.EventHandler(this.btn_rgb1_para_yiq_com_brilho_para_rgb2_Click);
+            // 
+            // label2
+            // 
+            this.label2.AutoSize = true;
+            this.label2.Location = new System.Drawing.Point(514, 55);
+            this.label2.Name = "label2";
+            this.label2.Size = new System.Drawing.Size(168, 17);
+            this.label2.TabIndex = 11;
+            this.label2.Text = "Clarear ou escurecer em:";
+            // 
+            // numUD_constante
+            // 
+            this.numUD_constante.Location = new System.Drawing.Point(539, 75);
+            this.numUD_constante.Maximum = new decimal(new int[] {
+            10,
+            0,
+            0,
+            0});
+            this.numUD_constante.Name = "numUD_constante";
+            this.numUD_constante.Size = new System.Drawing.Size(120, 22);
+            this.numUD_constante.TabIndex = 10;
             // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(902, 438);
+            this.ClientSize = new System.Drawing.Size(1203, 452);
+            this.Controls.Add(this.label2);
+            this.Controls.Add(this.numUD_constante);
+            this.Controls.Add(this.btn_rgb1_para_yiq_com_brilho_para_rgb2);
             this.Controls.Add(this.btn_rgb1_para_yiq_para_rgb2);
             this.Controls.Add(this.label3);
             this.Controls.Add(this.label1);
@@ -116,6 +156,7 @@
             this.Text = "Form1";
             ((System.ComponentModel.ISupportInitialize)(this.picBox_rgb1)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.picBox_rgb2)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.numUD_constante)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -129,6 +170,9 @@
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.Label label3;
         private System.Windows.Forms.Button btn_rgb1_para_yiq_para_rgb2;
+        private System.Windows.Forms.Button btn_rgb1_para_yiq_com_brilho_para_rgb2;
+        private System.Windows.Forms.Label label2;
+        public System.Windows.Forms.NumericUpDown numUD_constante;
     }
 }
 
