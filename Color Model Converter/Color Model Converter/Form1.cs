@@ -71,6 +71,32 @@ namespace Color_Model_Converter
             return YIQ;
         }
 
+        private Bitmap YIQ_para_RGB2(double[,,] YIQ)
+        {
+            int largura_yiq = YIQ.GetLength(0);
+            int altura_yiq = YIQ.GetLength(1);
+
+            Bitmap rgb2 = new Bitmap(largura_yiq, altura_yiq);
+
+            for (int coluna_yiq = 0; coluna_yiq < largura_yiq; coluna_yiq++)
+            {
+                for (int linha_yiq = 0; linha_yiq < altura_yiq; linha_yiq++)
+                {
+                    double luminância = YIQ[coluna_yiq, linha_yiq, 0];
+                    double em_fase = YIQ[coluna_yiq, linha_yiq, 1];
+                    double quadratura = YIQ[coluna_yiq, linha_yiq, 2];
+
+                    int vermelho = (int)((1 * luminância) + (0.956 * em_fase) + (0.620 * quadratura));
+                    int verde = (int)((1 * luminância) - (0.272 * em_fase) - (0.647 * quadratura));
+                    int azul = (int)((1 * luminância) - (1.108 * em_fase) + (1.705 * quadratura));
+
+                    Color pixel_argb2 = Color.FromArgb(255, vermelho, verde, azul);
+                    rgb2.SetPixel(coluna_yiq, linha_yiq, pixel_argb2);
+                }
+            }
+            return rgb2;
+        }
+
         private void btn_buscar_imagem_Click(object sender, EventArgs e)
         {
             //abre o open file dialog
@@ -87,7 +113,8 @@ namespace Color_Model_Converter
         {
             limpar_RGB1_para_frente();
             Bitmap bitmap_rgb1 = (Bitmap)picBox_rgb1.Image;
-            RGB1_para_YIQ(bitmap_rgb1);
+            double[,,] YIQ = RGB1_para_YIQ(bitmap_rgb1);
+            YIQ_para_RGB2(YIQ);
         }
     }
 }
