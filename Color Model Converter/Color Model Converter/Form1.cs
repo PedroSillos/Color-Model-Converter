@@ -23,14 +23,53 @@ namespace Color_Model_Converter
         {
             //zera a imagem, caso usem o botão dnv
             picBox_rgb1.Image = null;
-            picBox_yqi1.Image = null;
             picBox_rgb2.Image = null;
 
             /*
-            //zera o chat, caso usem o botão dnv
+            //zera o chart, caso usem o botão dnv
             chart_imagem_cortada.Series["Cortada"].Points.Clear();
             chart_imagem_alterada.Series["Cortada"].Points.Clear();
             */
+        }
+
+        private void limpar_RGB1_para_frente()
+        {
+            //zera a imagem, caso usem o botão dnv
+            picBox_rgb2.Image = null;
+
+            /*
+            //zera o chart, caso usem o botão dnv
+            chart_imagem_alterada.Series["Cortada"].Points.Clear();
+            */
+        }
+
+        private Bitmap RGB1_para_YIQ(Bitmap rgb1)
+        {
+            int largura_rgb1 = rgb1.Width;
+            int altura_rgb1 = rgb1.Height;
+
+            Bitmap YIQ = new Bitmap(largura_rgb1, altura_rgb1);
+
+            for (int coluna_rgb1 = 0; coluna_rgb1 < largura_rgb1; coluna_rgb1++)
+            {
+                for (int linha_rgb1 = 0; linha_rgb1 < altura_rgb1; linha_rgb1++)
+                {
+                    Color pixel_argb1 = rgb1.GetPixel(coluna_rgb1, linha_rgb1);
+                    int vermelho = Convert.ToInt32(pixel_argb1.R.ToString());
+                    int verde = Convert.ToInt32(pixel_argb1.G.ToString());
+                    int azul = Convert.ToInt32(pixel_argb1.B.ToString());
+
+                    double luminância = (0.299 * vermelho) + (0.587 * verde) + (0.114 * azul);
+                    double em_fase = (0.596 * vermelho) - (0.275 * verde) - (0.321 * azul);
+                    double quadratura = (0.212 * vermelho) - (0.523 * verde) + (0.311 * azul);
+
+                    Color pixel_yiq = Color.FromArgb(255, (int)luminância, (int)em_fase, (int)quadratura);
+
+                    YIQ.SetPixel(coluna_rgb1, linha_rgb1, pixel_yiq);
+                }
+            }
+
+            return YIQ;
         }
 
         private void btn_buscar_imagem_Click(object sender, EventArgs e)
@@ -41,25 +80,15 @@ namespace Color_Model_Converter
             if (dialog_carregar_imagem.ShowDialog() == DialogResult.OK)
             {
                 limpar_Tela();
-                Bitmap imagem_original = new Bitmap(dialog_carregar_imagem.FileName);
-                picBox_rgb1.Image = imagem_original;
-            }
-            else
-            {
-                picBox_rgb1.Image = null;
+                picBox_rgb1.Image = new Bitmap(dialog_carregar_imagem.FileName);
             }
         }
 
-        private void a()
+        private void btn_rgb1_para_yiq_para_rgb2_Click(object sender, EventArgs e)
         {
-            int largura = picBox_rgb1.Image.Width;
-            int altura = picBox_rgb1.Image.Height;
-            Bitmap imagem_cortada = new Bitmap(largura, altura);
-        }
-
-        private void btn_rgb1_para_yig_Click(object sender, EventArgs e)
-        {
-            a();
+            limpar_RGB1_para_frente();
+            Bitmap bitmap_rgb1 = (Bitmap)picBox_rgb1.Image;
+            RGB1_para_YIQ(bitmap_rgb1);
         }
     }
 }
