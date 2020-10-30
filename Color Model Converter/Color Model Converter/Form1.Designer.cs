@@ -127,12 +127,22 @@
             // 
             // numUD_constante
             // 
-            this.numUD_constante.Location = new System.Drawing.Point(539, 75);
-            this.numUD_constante.Maximum = new decimal(new int[] {
+            this.numUD_constante.Increment = new decimal(new int[] {
             10,
             0,
             0,
             0});
+            this.numUD_constante.Location = new System.Drawing.Point(539, 75);
+            this.numUD_constante.Maximum = new decimal(new int[] {
+            300,
+            0,
+            0,
+            0});
+            this.numUD_constante.Minimum = new decimal(new int[] {
+            300,
+            0,
+            0,
+            -2147483648});
             this.numUD_constante.Name = "numUD_constante";
             this.numUD_constante.Size = new System.Drawing.Size(120, 22);
             this.numUD_constante.TabIndex = 10;

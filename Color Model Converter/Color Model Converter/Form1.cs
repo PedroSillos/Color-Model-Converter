@@ -90,6 +90,13 @@ namespace Color_Model_Converter
                     int verde = (int)((1 * luminância) - (0.272 * em_fase) - (0.647 * quadratura));
                     int azul = (int)((1 * luminância) - (1.108 * em_fase) + (1.705 * quadratura));
 
+                    if (vermelho < 0) { vermelho = 0; }
+                    if (vermelho > 255) { vermelho = 255; }
+                    if (verde < 0) { verde = 0; }
+                    if (verde > 255) { verde = 255; }
+                    if (azul < 0) { azul = 0; }
+                    if (azul > 255) { azul = 255; }
+
                     Color pixel_argb2 = Color.FromArgb(255, vermelho, verde, azul);
                     rgb2.SetPixel(coluna_yiq, linha_yiq, pixel_argb2);
                 }
@@ -129,7 +136,7 @@ namespace Color_Model_Converter
             return subtracao;
         }
 
-        private double[,,] clarear_YIQ(double[,,] YIQ)
+        private double[,,] Clarear_YIQ(double[,,] YIQ)
         {
             int largura_yiq = YIQ.GetLength(0);
             int altura_yiq = YIQ.GetLength(1);
@@ -146,7 +153,7 @@ namespace Color_Model_Converter
                     double em_fase = YIQ[coluna_yiq, linha_yiq, 1];
                     double quadratura = YIQ[coluna_yiq, linha_yiq, 2];
 
-                    YIQ_claro[coluna_yiq, linha_yiq, 0] = luminância * constante;
+                    YIQ_claro[coluna_yiq, linha_yiq, 0] = luminância + constante;
                     YIQ_claro[coluna_yiq, linha_yiq, 1] = em_fase;
                     YIQ_claro[coluna_yiq, linha_yiq, 2] = quadratura;
                 }
@@ -180,7 +187,8 @@ namespace Color_Model_Converter
             limpar_RGB1_para_frente();
             Bitmap bitmap_rgb1 = (Bitmap)picBox_rgb1.Image;
             double[,,] YIQ = RGB1_para_YIQ(bitmap_rgb1);
-            picBox_rgb2.Image = YIQ_para_RGB2(YIQ);
+            double[,,] YIQ_claro = Clarear_YIQ(YIQ);
+            picBox_rgb2.Image = YIQ_para_RGB2(YIQ_claro);
         }
     }
 }
